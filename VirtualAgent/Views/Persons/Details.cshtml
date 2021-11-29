@@ -1,0 +1,65 @@
+@model PersonAccountsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Person</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Person.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Person.Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Person.Surname)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Accounts)
+        </dt>
+        <dd>
+            <p>
+    @Html.ActionLink("Add a account", "Create", "Account", new {code = Model.Person.Code})
+</p>
+            <table class="table">
+                <tr>
+                    <th>Code</th>
+                    <th>Account Number</th>
+                    <th>Outstanding Balance</th>
+                </tr>
+                @foreach (var item in Model.Accounts)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AccountNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.OutstandingBalance)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit","Account", new { code = item.Code }) | @Html.ActionLink("Details", "Details","Account", new { code = item.Code })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Person.Code }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

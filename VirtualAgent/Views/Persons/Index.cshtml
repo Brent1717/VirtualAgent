@@ -1,0 +1,52 @@
+﻿
+
+@using X.PagedList.Mvc.Core;
+@model X.PagedList.IPagedList<Person>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" 
+  type="text/css" />
+
+  @{
+    ViewData["Title"] = "Person Page";
+}
+<h2>Persons</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm("Index", "Persons", FormMethod.Get))
+{
+    <p>
+        Find by name or surname: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+<div class="text-center">
+    <table class="table  table-responsive table-hover">  
+    <tr>  
+        <th>Code</th>  
+        <th>Name </th>  
+        <th>Surname </th>  
+        <th>Id Number</th>  
+    </tr>  
+    @foreach (var person in Model)  
+    {  
+        <tr>  
+            <td>@person.Code</td>  
+            <td>@person.Name</td>  
+            <td>@person.Surname</td>  
+            <td>@person.IDNumber</td> 
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { code = person.Code }) |
+                @Html.ActionLink("Details", "Details", new { code = person.Code }) |
+                @Html.ActionLink("Delete", "Delete", new { code = person.Code })
+            </td>
+        </tr>  
+    }  
+</table>  
+</div>
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, currentFilter = ViewBag.CurrentFilter }))
+

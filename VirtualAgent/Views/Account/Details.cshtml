@@ -1,0 +1,84 @@
+@model AccountTranctionsViewModel
+
+@{
+    ViewBag.Title = "Account Details";
+}
+
+<h2>Account Details</h2>
+
+<div>
+    <h4>Account</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Account.Code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account.Code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Account.AccountNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account.AccountNumber)
+        </dd>
+                <dt>
+            @Html.DisplayNameFor(model => model.Account.OutstandingBalance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account.OutstandingBalance)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Transactions)
+        </dt>
+        <dd>
+                        <p>
+    @Html.ActionLink("Add a Transaction", "Create", "Transaction", new { code = Model.Account.Code } )
+</p>
+            <table class="table">
+                <tr>
+                    <th>Code</th>
+                    <th>Account Code</th>
+                    <th>Transaction Date</th>
+                    <th>Capture Date</th>
+                    <th>Amount</th>
+                    <th>Description</th>
+                </tr>
+                @foreach (var item in Model.Transactions)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Code)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AccountCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TransactionDate)
+                        </td>
+                                                <td>
+                            @Html.DisplayFor(modelItem => item.CaptureDate)
+                        </td>
+                                                <td>
+                            @Html.DisplayFor(modelItem => item.Amount)
+                        </td>
+                                                                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                            <td>
+                            @Html.ActionLink("Edit", "Edit","Transaction", new { code = item.Code }) | @Html.ActionLink("Details", "Details","Transaction", new { code = item.Code })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", "Account", new { code = Model.Account.Code }) |
+    @Html.ActionLink("Back to List", "Details", "Persons", new { code = Model.Account.PersonCode })
+</p>
